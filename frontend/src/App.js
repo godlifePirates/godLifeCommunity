@@ -13,7 +13,6 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Header />
         <AuthProvider>
           <HttpHeadersProvider>
             <Navi />
