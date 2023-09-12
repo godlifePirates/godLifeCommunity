@@ -8,8 +8,8 @@ import AuthProvider from "./Components/context/AuthProvider"
 import HttpHeadersProvider from "./Components/context/HttpHeadersProvider"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function App() {
+  
   return (
     <div>
       <BrowserRouter>
