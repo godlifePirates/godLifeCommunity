@@ -4,7 +4,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 
-
 function Navi() {
     return (
         <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
@@ -44,26 +43,28 @@ function Navi() {
                             </NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link href="#link">채널검색</Nav.Link>
-                        
+
                     </Nav>
                     <Nav className="ml-auto">
-                        <NavDropdown title="로그인" id="basic-nav-dropdown">
+                        <Nav.Link href="#link">채널검색</Nav.Link>
+                        { true && <Nav.Link href="/member/Login">로그인</Nav.Link>
+                        }
+                        { true && <NavDropdown title="내정보 ㅋㅋ" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">
-                                1
+                                마이페이지
                             </NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">
-                                2
+                                채널만들기
                             </NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">
-                                3
+                                프로필관리
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">
-                                4
+                                구독관리
                             </NavDropdown.Item>
                         </NavDropdown>
-                        
-                        <Nav.Link href="#link">채널검색</Nav.Link>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>

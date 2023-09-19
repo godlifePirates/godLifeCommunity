@@ -5,6 +5,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthProvider";
 import { HttpHeadersContext } from "../context/HttpHeadersProvider";
+import Button from 'react-bootstrap/Button';
+
 
 function Login() {
 
@@ -75,11 +77,16 @@ function Login() {
 					</tr>
 				</tbody>
 			</table><br />
-
-			<div className="my-1 d-flex justify-content-center">
-				<button className="btn btn-outline-secondary" onClick={login}><i className="fas fa-sign-in-alt"></i> 로그인</button>
-			</div>
-
+				<div class="d-flex justify-content-center" >
+					<Button variant="secondary" onClick={login} >로그인</Button>{'  '}
+				</div>
+				<div>
+					
+				</div>
+				<div class="d-flex justify-content-center" >
+					<Button variant="link" onClick={login} >비밀번호를 잊으셨나요?</Button>{' '}
+					<Button variant="link" onClick={login} >처음이신가요?</Button>{'  '}
+				</div>
 		</div>
 	);
 }
