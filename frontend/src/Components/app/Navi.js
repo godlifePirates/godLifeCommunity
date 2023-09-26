@@ -47,9 +47,9 @@ function Navi() {
                     </Nav>
                     <Nav className="ml-auto">
                         <Nav.Link href="#link">채널검색</Nav.Link>
-                        { true && <Nav.Link href="/member/Login">로그인</Nav.Link>
+                        { 1==1 && <Nav.Link href="/member/Login">로그인</Nav.Link>
                         }
-                        { true && <NavDropdown title="내정보 ㅋㅋ" id="basic-nav-dropdown">
+                        { true && <NavDropdown title="내정보(아이콘)" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">
                                 마이페이지
                             </NavDropdown.Item>

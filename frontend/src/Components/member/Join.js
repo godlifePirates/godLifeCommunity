@@ -1,145 +1,227 @@
-/* 회원가입 컴포넌트 */
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { InputGroup, Form, Button, Modal } from 'react-bootstrap';
+import { FaCheckCircle,FaTimesCircle,FaExclamationCircle  } from 'react-icons/fa';
 
-import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router";
+function Join({ email, nickname, password, changeNickname}) {
+  const [showTermModal, setShowTermModal] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [isIdChecked, setIsIdChecked] = useState(null);
+  const [isNicknameChecked, setIsNicknameChecked] = useState(null);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isPasswordMatch, setIsPasswordMatch] = useState(null);
 
-function Join() {
-
-	const [id, setId] = useState("");
-	const [name, setName] = useState("");
-	const [pwd, setPwd] = useState("");
-	const [checkPwd, setCheckPwd] = useState("");
-	const [email, setEmail] = useState("");
-
-	const navigate = useNavigate();
-
-	const changeId = (event) => {
-		setId(event.target.value);
+  const handlePasswordChange = (e) => {
+	const newPassword = e.target.value;
+	if (newPassword.length >= 8) {
+	  setIsPasswordValid(true);
+	} else {
+	  setIsPasswordValid(false);
 	}
-
-	const changeName = (event) => {
-		setName(event.target.value);
+  }
+  const handleConfirmPasswordChange = (e) => {
+	const newConfirmPassword = e.target.value;
+	if (newConfirmPassword === password) {
+	  setIsPasswordMatch(true);
+	} else {
+	  setIsPasswordMatch(false);
 	}
+  }
+  
 
-	const changePwd = (event) => {
-		setPwd(event.target.value);
-	}
+  const containerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    height: '65vh',
+  };
 
-	const changeCheckPwd = (event) => {
-		setCheckPwd(event.target.value);
-	}
+  const boxStyle = {
+    padding: '20px',
+    backgroundColor: '#f0f0f0',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+  };
 
-	const changeEmail = (event) => {
-		setEmail(event.target.value);
-	}
+  const scrollBoxStyle = {
+    maxHeight: '150px',
+    overflowY: 'scroll',
+    border: '1px solid #ccc',
+    padding: '10px',
+    marginBottom: '20px',
+  };
 
-	/* 아이디 중복 체크 */
-	const checkIdDuplicate = async () => {
+  const checkIdDuplicate = async () => {
+	// 실제로는 서버에 요청하여 중복 여부를 확인해야 합니다.
+	//const isDuplicate = await axios.get(`/api/checkIdDuplicate/${email}`);
+	// return isDuplicate;
+	return true;
+  }
+  
+  const checkNicknameDuplicate = async () => {
+	// 실제로는 서버에 요청하여 중복 여부를 확인해야 합니다.
+	//const isDuplicate = await axios.get(`/api/checkNicknameDuplicate/${nickname}`);
+	//return isDuplicate;
+	return true;
+  }
+  
 
-		await axios.get("http://localhost:3000/user", { params: { id: id } })
-			.then((resp) => {
-				console.log("[Join.js] checkIdDuplicate() success :D");
-				console.log(resp.data);
+  const handleTermClick = () => {
+    setShowTermModal(true);
+  }
 
-				if (resp.status == 200) {
-					alert("사용 가능한 아이디입니다.");
-				}
-				
-			})
-			.catch((err) => {
-				console.log("[Join.js] checkIdDuplicate() error :<");
-				console.log(err);
+  const handlePrivacyClick = () => {
+    setShowPrivacyModal(true);
+  }
 
-				const resp = err.response;
-				if (resp.status == 400) {
-					alert(resp.data);
-				}
-			});
+  const handleCloseTermModal = () => {
+    setShowTermModal(false);
+  }
 
-	}
+  const handleClosePrivacyModal = () => {
+    setShowPrivacyModal(false);
+  }
 
-	/* 회원가입 */
-	const join = async () => {
+  const handleIdCheck = async () => {
+    const isDuplicate = await checkIdDuplicate();
+	console.log(isDuplicate);
+    setIsIdChecked(isDuplicate);
+  }
 
-		const req = {
-			id: id,
-			name, name,
-			pwd: pwd,
-			checkPwd: checkPwd,
-			email: email
-		}
+  const handleNicknameCheck = async () => {
+    const isDuplicate = await checkNicknameDuplicate();
+    setIsNicknameChecked(isDuplicate);
+  }
 
-		await axios.post("http://localhost:3000/user/join", req)
-			.then((resp) => {
-				console.log("[Join.js] join() success :D");
-				console.log(resp.data);
+  return (
+    <div style={containerStyle}>
+      <div style={boxStyle}>
+        <h2 className="text-center mb-4">회원가입</h2>
 
-				alert(resp.data.id + "님 회원가입을 축하드립니다 🎊");
-				navigate("/login");
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="email" style={{ minWidth: '150px' }}>
+            email
+          </InputGroup.Text>
+          <Form.Control
+            type="text"
+            placeholder="email"
+            aria-label="email"
+            aria-describedby="email"
+            value={email}
+          />
+          <Button variant="outline-secondary" onClick={handleIdCheck} style={{ height: '38px' }}>
+		  	{isIdChecked
+				?  <FaCheckCircle style={{ color: 'green' }} /> // 성공한 경우
+				: false && <FaTimesCircle style={{ color: 'red' }} />   // 실패한 경우
+			}
+			아이디 중복 체크
+          </Button>
+        </InputGroup>
 
-			}).catch((err) => {
-				console.log("[Join.js] join() error :<");
-				console.log(err);
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="nickname" style={{ minWidth: '150px' }}>
+            별명
+          </InputGroup.Text>
+          <Form.Control
+            type="text"
+            placeholder="nickname"
+            aria-label="nickname"
+            aria-describedby="nickname"
+            value={nickname}
+            onChange={changeNickname}
+          />
+          <Button variant="outline-secondary" onClick={handleNicknameCheck } style={{ height: '38px'}}>
+          {isNicknameChecked
+		 				?  <FaCheckCircle style={{ color: 'green' }} /> // 성공한 경우
+						: false && <FaExclamationCircle style={{ color: 'yellow' }} />   // 실패한 경우
+					 }
+            별명 중복 체크
+          </Button>
+        </InputGroup>
 
-				// alert(err.response.data);
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="password" style={{ minWidth: '150px' }}>
+            비밀번호
+          </InputGroup.Text>
+          <Form.Control
+            type="password"
+            placeholder="password"
+            aria-label="password"
+            aria-describedby="password"
+            value={password}
+			onChange={handlePasswordChange} // 변경된 부분
+			/>
+		{isPasswordValid && <FaCheckCircle style={{ color: 'green' }} />} {/* 변경된 부분 */}
+		</InputGroup>
+		        
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="confirmPassword" style={{ minWidth: '150px' }}>
+            비밀번호 확인
+          </InputGroup.Text>
+          <Form.Control
+            type="password"
+            placeholder="confirm password"
+            aria-label="confirm password"
+            aria-describedby="confirm password"
+			onChange={handleConfirmPasswordChange} // 변경된 부분
+			/>
+			{isPasswordMatch && <FaCheckCircle style={{ color: 'green' }} />} {/* 변경된 부분 */}
+		  </InputGroup>
 
-				const resp = err.response;
-				if (resp.status == 400) {
-					alert(resp.data);
-				}
-			});
-	}
+        <Form.Group className="mb-3">
+          <Form.Check
+            type="checkbox"
+            label={
+              <span>
+                <Button variant="link" onClick={handleTermClick}>이용약관</Button>{' '}
+                및 
+                <Button variant="link" onClick={handlePrivacyClick}>개인정보 취급 방침</Button>
+              </span>
+            }
+          />
+        </Form.Group>
 
+        <Form.Group className="mb-3">
+          <Form.Check
+            type="checkbox"
+            label="이메일수신동의"
+          />
+        </Form.Group>
 
-	return (
-		<div>
-			<table className="table">
-				<tbody>
-					<tr>
-						<th className="col-2">아이디</th>
-						<td>
-							<input type="text" value={id} onChange={changeId} size="50px" /> &nbsp; &nbsp;
-							<button className="btn btn-outline-danger" onClick={checkIdDuplicate}><i className="fas fa-check"></i> 아이디 중복 확인</button>
-						</td>
-					</tr>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button variant="primary" type="button">
+            회원가입
+          </Button>
+        </div>
 
-					<tr>
-						<th>이름</th>
-						<td>
-							<input type="text" value={name} onChange={changeName} size="50px" />
-						</td>
-					</tr>
+        <Modal show={showTermModal} onHide={handleCloseTermModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>이용약관</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div style={scrollBoxStyle}>
+              <p>
+                이용약관 내용을 스크롤바로 표시합니다. 여러 줄의 텍스트를 넣어도 스크롤바가 나타납니다.
+              </p>
+            </div>
+          </Modal.Body>
+        </Modal>
 
-					<tr>
-						<th>비밀번호</th>
-						<td>
-							<input type="password" value={pwd} onChange={changePwd} size="50px" />
-						</td>
-					</tr>
+        <Modal show={showPrivacyModal} onHide={handleClosePrivacyModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>개인정보 취급 방침</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div style={scrollBoxStyle}>
+              <p>
+                개인정보 취급 방침 내용을 스크롤바로 표시합니다. 여러 줄의 텍스트를 넣어도 스크롤바가 나타납니다.
+              </p>
+            </div>
+          </Modal.Body>
+        </Modal>
 
-					<tr>
-						<th>비밀번호 확인</th>
-						<td>
-							<input type="password" value={checkPwd} onChange={changeCheckPwd} size="50px" />
-						</td>
-					</tr>
-
-					<tr>
-						<th>이메일</th>
-						<td>
-							<input type="text" value={email} onChange={changeEmail} size="100px" />
-						</td>
-					</tr>
-				</tbody>
-			</table><br />
-
-			<div className="my-3 d-flex justify-content-center">
-				<button className="btn btn-outline-secondary" onClick={join}><i className="fas fa-user-plus"></i> 회원가입</button>
-			</div>
-
-		</div>
-	);
+      </div>
+    </div>
+  );
 }
 
 export default Join;
