@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.glp.community.data.dto.BoardDTO;
 import com.glp.community.data.dto.request.MakeBoardRequestDTO;
+import com.glp.community.mapper.BoardMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,9 +17,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardService {
 
+    private final BoardMapper boardMapper;
+
     public ResponseEntity<List<BoardDTO>> getBoardList() {
 
-        List<BoardDTO> boardList = new ArrayList<>();
+        List<BoardDTO> boardList = boardMapper.getBoardList();
 
         return new ResponseEntity<>(boardList, HttpStatus.OK);
     }
@@ -30,7 +33,8 @@ public class BoardService {
 
     public ResponseEntity<String> updateBoard(
         int boardId,
-        MakeBoardRequestDTO dto) {
+        MakeBoardRequestDTO dto
+    ) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -38,5 +42,22 @@ public class BoardService {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    public ResponseEntity<String> getPostListByBoardId(int boardId) {
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> getPostByBoardIdAndPostId(
+        int boardId,
+        int postId
+    ) {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> createPost(int boardId) {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

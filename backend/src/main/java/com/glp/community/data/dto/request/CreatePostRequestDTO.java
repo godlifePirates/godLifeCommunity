@@ -1,4 +1,4 @@
-package com.glp.community.data.dto;
+package com.glp.community.data.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class HelloDTO {
+@NoArgsConstructor
+public class CreatePostRequestDTO {
+
     private int seq;
 }
