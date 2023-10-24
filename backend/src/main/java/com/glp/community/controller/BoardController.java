@@ -27,6 +27,8 @@ public class BoardController {
 
     @GetMapping("/")
     public ResponseEntity<List<BoardDTO>> getBoardList(){
+        System.out.println("TEST11111");
+
         return boardService.getBoardList();
     }
 
@@ -34,6 +36,7 @@ public class BoardController {
     public ResponseEntity<String> makeBoard(@RequestBody
                                             MakeBoardRequestDTO dto
                                             ){
+        System.out.println("TEST4444");
         return boardService.makeBoard(dto);
     }
 
@@ -42,6 +45,7 @@ public class BoardController {
         @PathVariable int boardId,
         @RequestBody MakeBoardRequestDTO dto
     ) {
+        System.out.println("TEST3333");
         return boardService.updateBoard(boardId, dto);
     }
 
@@ -54,6 +58,7 @@ public class BoardController {
 
     @GetMapping("/{boardId}")
     public ResponseEntity<String> getPostListByBoardId(@PathVariable int boardId){
+        System.out.println("TEST2222");
         return boardService.getPostListByBoardId(boardId);
     }
 

@@ -20,9 +20,10 @@ public class BoardService {
     private final BoardMapper boardMapper;
 
     public ResponseEntity<List<BoardDTO>> getBoardList() {
-
+        System.out.println("TEST+ZZZZZ");
         List<BoardDTO> boardList = boardMapper.getBoardList();
-
+        System.out.println(boardList);
+        System.out.println("TEST+XXXX");
         return new ResponseEntity<>(boardList, HttpStatus.OK);
     }
 
