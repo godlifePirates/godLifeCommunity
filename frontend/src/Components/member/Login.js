@@ -26,6 +26,11 @@ function Login() {
 		setPwd(event.target.value);
 	}
 
+	const goTOJoin = () => {
+		navigate("/member/join");
+	}
+
+
 	const login = async () => {
 
 		const req = {
@@ -84,8 +89,8 @@ function Login() {
 					
 				</div>
 				<div class="d-flex justify-content-center" >
-					<Button variant="link" onClick={login} >비밀번호를 잊으셨나요?</Button>{' '}
-					<Button variant="link" onClick={login} >처음이신가요?</Button>{'  '}
+					<Button variant="link" onClick={login}>비밀번호를 잊으셨나요?</Button>{' '}
+					<Button variant="link" onClick={goTOJoin} >처음이신가요?</Button>{'  '}
 				</div>
 		</div>
 	);
