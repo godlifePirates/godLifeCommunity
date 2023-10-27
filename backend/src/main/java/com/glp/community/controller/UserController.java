@@ -20,12 +20,15 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    /*회원가입*/
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody UserDTO userDTO) {
 
         return userService.join(userDTO);
     }
 
+    /*로그인*/
     @PostMapping("/login")
     public ResponseEntity<Map<String,Object>> login (@RequestBody UserDTO userDTO){
 
@@ -40,6 +43,26 @@ public class UserController {
         return ResponseEntity.ok(result);
 
     }
+
+    /*아이디 중복체크*/
+    @PostMapping("/checkId")
+    public ResponseEntity<Map<String,Object>> checkId(@RequestBody Map<String, Object> params)
+            throws Exception {
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            int existCnt = userService.checkId((String) params.get("userId"));
+            result.put("result", existCnt);
+            //result.put("status", 200);
+        }catch (UserNotFoundException e) {
+            //result.put("status", 601);
+        }
+
+        return ResponseEntity.ok(result);
+
+    }
+
+
 
 
 }

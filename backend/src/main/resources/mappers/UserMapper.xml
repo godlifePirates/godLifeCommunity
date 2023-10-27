@@ -48,4 +48,9 @@
         AND email = #{email}
         AND password = #{password}
     </select>
+
+    <select id="checkId" parameterType="String" resultType="Int">
+        SELECT count(*) from tbl_user
+        WHERE email = UPPER(#{userId})
+    </select>
 </mapper>

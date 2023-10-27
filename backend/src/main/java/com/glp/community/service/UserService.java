@@ -30,4 +30,12 @@ public class UserService {
         }
         return  userInfo;
     }
+
+
+    public int checkId(String userId) throws Exception{
+
+        int existCnt = userMapper.checkId(userId);
+
+        return existCnt;
+    }
 }
