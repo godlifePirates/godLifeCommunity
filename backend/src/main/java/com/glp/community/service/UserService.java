@@ -32,9 +32,9 @@ public class UserService {
     }
 
 
-    public int checkId(String userId) throws Exception{
+    public int checkIdDuplicate(String email) throws Exception{
 
-        int existCnt = userMapper.checkId(userId);
+        int existCnt = userMapper.checkIdDuplicate(email);
 
         return existCnt;
     }

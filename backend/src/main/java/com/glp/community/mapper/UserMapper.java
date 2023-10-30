@@ -13,5 +13,5 @@ public interface UserMapper {
 
     UserDTO loginUser(UserDTO userDTO);
 
-    int checkId(String userId);
+    int checkIdDuplicate(String email);
 }

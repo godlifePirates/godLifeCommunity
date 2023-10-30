@@ -6,6 +6,7 @@ import BoardDetail from "../board/BoardDetail"
 import Join from "../member/Join"
 import Login from "../member/Login"
 import Logout from "../member/Logout"
+import BoardCard from "../board/BoardCard"
 
 
 function Router() {
@@ -13,12 +14,14 @@ function Router() {
 		<Routes>
 			<Route path="/" element={<Home />}></Route>
 			<Route path="/board" element={<BoardList />}></Route>
+			<Route path="/board/boardCard" element={<BoardCard />}></Route>
 			<Route path="/board/:boardId/" element={<BoardDetail />}></Route>
 			<Route path="/" element={<Home />}></Route>
 
 			<Route path="/member/login" element={<Login />}></Route>
 			<Route path="/member/join" element={<Join />}></Route>
 			<Route path="/member/logout" element={<Logout />}></Route>
+			
 		</Routes>
 	);
 }

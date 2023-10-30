@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, Form, Button, Modal } from 'react-bootstrap';
 import { FaCheckCircle,FaTimesCircle,FaExclamationCircle  } from 'react-icons/fa';
+import axios from 'axios';
 
 function Join({ email, nickname, password, changeNickname}) {
   const [showTermModal, setShowTermModal] = useState(false);
@@ -54,6 +55,14 @@ function Join({ email, nickname, password, changeNickname}) {
 	// 실제로는 서버에 요청하여 중복 여부를 확인해야 합니다.
 	//const isDuplicate = await axios.get(`/api/checkIdDuplicate/${email}`);
 	// return isDuplicate;
+
+  const isDuplicate = '';
+  await axios.get(`http://localhost:3000/user/checkIdDuplicate/${email}`)
+                            .then(response => {
+                              isDuplicate = response.data.result;
+                            });
+  alert("아이디중복검사"+isDuplicate);
+  
 	return true;
   }
   
@@ -83,7 +92,8 @@ function Join({ email, nickname, password, changeNickname}) {
 
   const handleIdCheck = async () => {
     const isDuplicate = await checkIdDuplicate();
-	console.log(isDuplicate);
+	  console.log(isDuplicate);
+    alert(isDuplicate);
     setIsIdChecked(isDuplicate);
   }
 

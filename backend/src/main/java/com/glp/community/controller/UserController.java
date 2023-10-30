@@ -45,13 +45,13 @@ public class UserController {
     }
 
     /*아이디 중복체크*/
-    @PostMapping("/checkId")
-    public ResponseEntity<Map<String,Object>> checkId(@RequestBody Map<String, Object> params)
+    @PostMapping("/checkIdDuplicate/${email}")
+    public ResponseEntity<Map<String,Object>> checkIdDuplicate(@PathVariable String email)
             throws Exception {
         Map<String, Object> result = new HashMap<>();
 
         try {
-            int existCnt = userService.checkId((String) params.get("userId"));
+            int existCnt = userService.checkIdDuplicate(email);
             result.put("result", existCnt);
             //result.put("status", 200);
         }catch (UserNotFoundException e) {
