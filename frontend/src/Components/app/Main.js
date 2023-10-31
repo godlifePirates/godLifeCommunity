@@ -1,5 +1,4 @@
-
-import Router from "../router/Router"
+import Router from "../router/MainRouter"
 
 function Main() {
 	return (
