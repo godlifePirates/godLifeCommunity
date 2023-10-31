@@ -45,7 +45,7 @@ public class UserController {
     }
 
     /*아이디 중복체크*/
-    @PostMapping("/checkIdDuplicate/${email}")
+    @PostMapping("/checkIdDuplicate/{email}")
     public ResponseEntity<Map<String,Object>> checkIdDuplicate(@PathVariable String email)
             throws Exception {
         Map<String, Object> result = new HashMap<>();

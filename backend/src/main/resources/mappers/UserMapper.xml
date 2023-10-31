@@ -30,7 +30,7 @@
         ,#{updateDt})
     </insert>
 
-    <select id="loginUser" resultType="com.glp.community.mapper.UserDTO">
+    <select id="loginUser" resultType="com.glp.community.data.dto.UserDTO">
         SELECT
          seq
         ,email
