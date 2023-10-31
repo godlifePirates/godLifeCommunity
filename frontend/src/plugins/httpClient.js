@@ -3,8 +3,6 @@ import Axios from 'axios';
 class HttpClient {
     static instance;
     axiosInstance;
-    authToken;
-
 
     constructor() {
         this.axiosInstance = Axios.create({
