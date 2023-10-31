@@ -46,3 +46,7 @@ gradle-app.setting
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+backend/.gradle/**
+backend/.idea/**
+*.lock
